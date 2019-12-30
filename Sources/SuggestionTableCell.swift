@@ -74,9 +74,14 @@ open class SuggestionTableCell<T, TableViewCell: UITableViewCell>: SuggestionCel
     
     open override func textFieldDidChange(_ textField: UITextField) {
         super.textFieldDidChange(textField)
-        if textField.text?.isEmpty == false {
-            showTableView()
-        }
+        showTableView()
+    }
+    
+    open override func textFieldDidBeginEditing(_ textField: UITextField) {
+          super.textFieldDidBeginEditing(textField)
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {[weak self] in
+              self?.showTableView()
+          }
     }
 
     open override func textFieldDidEndEditing(_ textField: UITextField) {
